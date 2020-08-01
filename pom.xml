@@ -19,37 +19,152 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+	<!-- Spring Boot Starters -->
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- for tomcat deployment -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<!-- version>2.8.0</version -->
+		</dependency>
+		<!-- mysql connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- AWS sdk Dependencies -->
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.11.133</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-cloudfront -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-cloudfront</artifactId>
+			<version>1.11.133</version>
+		</dependency>
+
+		<!-- Log4j dependency -->
+		<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter</artifactId>
+	<exclusions>
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-log4j</artifactId>
+		<version>1.2.5.RELEASE</version>
+	</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-elasticsearch -->
+		<!-- <dependency> <groupId>com.amazonaws</groupId> <artifactId>aws-java-sdk-elasticsearch</artifactId> 
+			<version>1.11.172</version> </dependency> -->
+		<!-- Swagger 2 Dependency -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
+			<!-- <scope>test</scope> -->
+			<scope>provided</scope>
 		</dependency>
+ 		<dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
 	</dependencies>
 
 	<build>
+		<!-- <plugins> Spring Boot Maven Plugin <plugin> <groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-maven-plugin</artifactId> </plugin> Spock related 
+			Plugins Mandatory plugins for using Spock <plugin> The gmavenplus plugin 
+			is used to compile Groovy code. To learn more about this plugin, visit https://github.com/groovy/GMavenPlus/wiki 
+			<groupId>org.codehaus.gmavenplus</groupId> <artifactId>gmavenplus-plugin</artifactId> 
+			<version>1.5</version> </plugin> </plugins> -->
+		<!-- Comment resources tag while running application on embedded tomcat -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>MemoriesApplication.properties</exclude>
+				</excludes>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
+			</resource>
+		</resources>
+
+
+		<finalName>memories</finalName>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- web start -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version><!--$NO-MVN-MAN-VER$ -->
+				<configuration>
+					<!-- <webXml>WebContent\WEB-INF\web.xml</webXml> -->
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<!-- web end -->
+
 		</plugins>
 	</build>
 
 </project>
+

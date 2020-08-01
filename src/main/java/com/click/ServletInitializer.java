@@ -2,11 +2,17 @@ package com.click;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
-public class ServletInitializer extends SpringBootServletInitializer {
+@Configuration
+@PropertySource("classpath:/ClickPicApplication.properties")
+public class ServletInitializer extends SpringBootServletInitializer
+{
 
 	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
+	{
 		return application.sources(ClickpicApplication.class);
 	}
 
